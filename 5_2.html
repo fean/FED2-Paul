@@ -1,0 +1,68 @@
+<script>
+//Functies voor GPS
+
+var OUTERSPACE = SPACE;
+var SPACE = SPACE || {};
+
+
+(function() {
+
+
+//applicatoin init uitvoeren
+SPACE.application = {
+	init: function(){ console.log('YEAAAAAAAAAAH, het werkt!')
+	},
+}
+
+
+//Function voor GPS
+
+SPACE.gps = {
+	startInterval: function(event){
+	},
+	updatePosition: function(){
+	},
+	setPosition: function(position){
+	},
+	checkLocations: function(event) {
+	},
+	calculateDistance: function(p1, p2) {
+	}
+	}
+
+//Functies voor Googlemaps
+
+
+SPACE.googleMaps = {
+	generateMap: function(myOptions, canvasId) {
+	},
+	isNumber: function(n) {
+	},
+	updatePositie: function(event){ 
+	} 
+}
+
+//Functies voor Debugging
+
+
+SPACE.debugging = {
+	geoErrorHandler: function(code,message){
+	},
+	debugMessage: function(message) {
+	},
+	setCustomDebugging: function(debugId) {
+	}
+}
+
+})();
+
+SPACE.application.init();
+Don't use global variables/objects
+Use short clear (meaningful) names
+Constructor function start with capital
+Constants with all captials
+camelCase the rest
+Place external scripts at the bottom of the page
+Comment your code
+
+</script>
