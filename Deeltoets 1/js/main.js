@@ -1,9 +1,8 @@
-
-//namespace
+//namespace wordt hier aangemaakt
 var FRISBEE = FRISBEE || {}; 
 
 
-//self invoking function
+//self invoking function wordt aaangemaakt
 (function(){
 
 
@@ -15,7 +14,7 @@ var FRISBEE = FRISBEE || {};
 	};
 	
 	
-	//schedule
+	//schedule met key values etc. (+ een array met naamloze objecten) 
 	FRISBEE.schedule = {
 		title: "Pool A - Schedule",
 		schedule: [
@@ -48,7 +47,7 @@ var FRISBEE = FRISBEE || {};
 	
 	
 	
-	//game
+	//game met key values etc. (+ een array met naamloze objecten)
 	FRISBEE.game = {
 		title: "Pool A - Score: Boomsquad vs. Burning Snow",
 		game: [
@@ -78,7 +77,7 @@ var FRISBEE = FRISBEE || {};
 			]
 	};
 	
-	//ranking
+	//ranking met key values etc. (+ een array met naamloze objecten)
 	FRISBEE.ranking = {
 		title: "Pool A - Ranking",
 		ranking: [
@@ -90,7 +89,7 @@ var FRISBEE = FRISBEE || {};
 			]
 	};
 	
-	// Router
+	// Router .init wordt hier gemaakt,dit zorgt ervoor dat de nieuwe pagina's aangemaakt worden, hier worden de pagina's genoemd
 	FRISBEE.router = {
 		init: function () {
 	  		routie({
@@ -109,13 +108,14 @@ var FRISBEE = FRISBEE || {};
 			    }
 			});
 		},
-
+		
+		//Hier wordt de function router.change aangemaakt. Deze code zorgt ervoor dat de pagina "ververst"(oude pagina gaat weg, nieuwe komt terug
 		change: function () {
             var route = window.location.hash.slice(2),
                 sections = qwery('section[data-route]'),
                 section = qwery('[data-route=' + route + ']')[0];  
 
-            // Show active section, hide all other
+            // Zorgt ervoor dat je de actieve sectie kan zien, de overige niet
             if (section) {
             	for (var i=0; i < sections.length; i++){
             		sections[i].classList.remove('active');
@@ -131,7 +131,7 @@ var FRISBEE = FRISBEE || {};
 		}
 	};
 
-	// Pages
+	// Dit zorgt ervoor dat de pages gekoppeld worden aan de .change functie.
 	FRISBEE.page = {
 		schedule: function () {
 			Transparency.render(qwery('[data-route=schedule')[0], FRISBEE.schedule);
