@@ -79,3 +79,8 @@ tr:nth-child(even){
 	color: green;
 	font-size: 180%;
 }
+
+#plus1, #plus2 {
+	cursor: pointer;
+}
+}
