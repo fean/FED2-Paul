@@ -9,31 +9,82 @@ var FRISBEE = FRISBEE || {};
 	//controller
 	FRISBEE.controller = {
 		init: function(){
-			FRISBEE.router.init();
+		
+			FRISBEE.router.init();				
+			var element = document.getElementById('finalScore'); 
+			element.addEventListener('click',function() { 
+						var type 		=  'POST',
+						url  		=  'https://api.leaguevine.com/v1/game_scores/',
+						postData 	= JSON.stringify({
+						game_id: '127236',
+						team_1_score: FRISBEE.score.addScoreId1,
+						team_2_score: FRISBEE.score.addScoreId2,
+						is_final: 'True'
+					});
+
+				// Create request
+				var xhr = new XMLHttpRequest();
+
+				// Open request
+				xhr.open(type,url,true);
+
+				// Set request headers
+				xhr.setRequestHeader('Content-type','application/json');
+				xhr.setRequestHeader('Authorization','bearer 82996312dc');
+
+				// Send request (with data as a json string)
+				xhr.send(postData);
+				
+				console.log("verzonden");
+			});
+			
+
 		}
 	};
 	
-	$$.json('https://api.leaguevine.com/v1/pools/?tournament_id=19389&access_token=7c9341c503',{},function(data){
-						console.log(data);
-					});
+	FRISBEE.Tournament = {
+			poolData: $$.json('https://api.leaguevine.com/v1/game_scores/?tournament_id=19389&access_token=1aa66ab3f7',{}, function(data){
+			FRISBEE.Tournament.pools = data;
+			Transparency.render(qwery('[data-route=schedule')[0], FRISBEE.Tournament.pools);
+			console.log(FRISBEE.Tournament.pools);
+		})
+		
+		
+	};
+	
+	
 	
 	
 	//schedule met key values etc. (+ een array met naamloze objecten) 
-	FRISBEE.schedule = {
+	FRISBEE.schedule = function(){
 		title: "Pool A - Schedule",
-		schedule: [
-			{ date: "Monday, 9:00am", team1: "Chasing", team1Score: "13", team2: "Amsterdam Money Gang", team2Score: "9"},
-			{ date: "Monday, 9:00am", team1: "Boomsquad", team1Score: "15", team2: "Beast Amsterdam", team2Score: "11"},
-			{ date: "Monday, 10:00am", team1: "Beast Amsterdam", team1Score: "14", team2: "Amsterdam Money Gang", team2Score: "12"},
-			{ date: "Monday, 10:00am", team1: "Chasing", team1Score: "5", team2: "Burning Snow", team2Score: "15"},
-			{ date: "Monday, 11:00am", team1: "Boomsquad", team1Score: "11", team2: "Amsterdam Money Gang", team2Score: "15"},    
-			{ date: "Monday, 11:00am", team1: "Burning Snow", team1Score: "15", team2: "Beast Amsterdam", team2Score: "6"},
-			{ date: "Monday, 12:00pm", team1: "Chasing", team1Score: "8", team2: "Beast Amsterdam", team2Score: "15"},
-			{ date: "Monday, 12:00pm", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"},
-			{ date: "Monday, 1:00pm", team1: "Chasing", team1Score: "15", team2: "Boomsquad", team2Score: "14"},
-			{ date: "Monday, 1:00pm", team1: "Burning Snow", team1Score: "15", team2: "Amsterdam Money Gang", team2Score: "11"}
-		]
+		console.log(title);
 	};
+	
+
+	
+FRISBEE.score = {
+    score1: 0,
+    score2: 0,
+
+    init: function () {
+        score1 = parseInt(document.getElementById('addScore1').innerHTML);
+        score2 = parseInt(document.getElementById('addScore2').innerHTML);
+        document.getElementById('plus1').onclick = function () {
+            score1++;
+            document.getElementById('addScore1').innerHTML = score1;
+            console.log(this.score1);
+        };
+        document.getElementById('plus2').onclick = function () {
+            score2++;
+            document.getElementById('addScore2').innerHTML = score2;
+            console.log(score2);
+        };
+    }
+};
+	
+	
+
 	
 	//win check
 	/*function won() {
@@ -55,41 +106,13 @@ var FRISBEE = FRISBEE || {};
 	FRISBEE.game = {
 		title: "Pool A - Score: Boomsquad vs. Burning Snow",
 		game: [
-			{ score: "1", team1: "Boomsquad", team1Score: "1", team2: "Burning Snow", team2Score: "0"},
-			{ score: "2", team1: "Boomsquad", team1Score: "2", team2: "Burning Snow", team2Score: "0"},
-			{ score: "3", team1: "Boomsquad", team1Score: "2", team2: "Burning Snow", team2Score: "1"},
-			{ score: "4", team1: "Boomsquad", team1Score: "2", team2: "Burning Snow", team2Score: "2"},
-			{ score: "5", team1: "Boomsquad", team1Score: "3", team2: "Burning Snow", team2Score: "2"},
-			{ score: "6", team1: "Boomsquad", team1Score: "4", team2: "Burning Snow", team2Score: "2"},
-			{ score: "7", team1: "Boomsquad", team1Score: "5", team2: "Burning Snow", team2Score: "2"},
-			{ score: "8", team1: "Boomsquad", team1Score: "5", team2: "Burning Snow", team2Score: "3"},
-			{ score: "9", team1: "Boomsquad", team1Score: "6", team2: "Burning Snow", team2Score: "3"},
-			{ score: "10", team1: "Boomsquad", team1Score: "7", team2: "Burning Snow", team2Score: "3"},
-			{ score: "11", team1: "Boomsquad", team1Score: "7", team2: "Burning Snow", team2Score: "4"},
-			{ score: "12", team1: "Boomsquad", team1Score: "8", team2: "Burning Snow", team2Score: "4"},
-			{ score: "13", team1: "Boomsquad", team1Score: "8", team2: "Burning Snow", team2Score: "5"},
-			{ score: "14", team1: "Boomsquad", team1Score: "8", team2: "Burning Snow", team2Score: "6"},
-			{ score: "15", team1: "Boomsquad", team1Score: "9", team2: "Burning Snow", team2Score: "6"},
-			{ score: "16", team1: "Boomsquad", team1Score: "9", team2: "Burning Snow", team2Score: "7"},
-			{ score: "17", team1: "Boomsquad", team1Score: "10", team2: "Burning Snow", team2Score: "7"},
-			{ score: "18", team1: "Boomsquad", team1Score: "11", team2: "Burning Snow", team2Score: "7"},
-			{ score: "19", team1: "Boomsquad", team1Score: "12", team2: "Burning Snow", team2Score: "7"},
-			{ score: "20", team1: "Boomsquad", team1Score: "13", team2: "Burning Snow", team2Score: "7"},
-			{ score: "21", team1: "Boomsquad", team1Score: "14", team2: "Burning Snow", team2Score: "7"},
-			{ score: "22", team1: "Boomsquad", team1Score: "14", team2: "Burning Snow", team2Score: "8"},
-			{ score: "23", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"}
 			]
 	};
 	
-	//ranking met key values etc. (+ een array met naamloze objecten)
+	// met key values etc. (+ een array met naamloze objecten)
 	FRISBEE.ranking = {
 		title: "Pool A - Ranking",
 		ranking: [
-			{ team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Pw: "35", Pl: "39"},
-			{ team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Pw: "36", Pl: "34"},
-			{ team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Pw: "36", Pl: "23"},
-			{ team: "Beast Amsterdam", Win: "2", Lost: "2", Sw: "6", Sl: "8", Pw: "30", Pl: "34"},
-			{ team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Pw: "30", Pl: "37"}
 			]
 	};
 	
@@ -106,6 +129,10 @@ var FRISBEE = FRISBEE || {};
 
 			    '/ranking': function() {
 			    	FRISBEE.page.ranking();
+			    },
+
+				'/score': function() {
+			    	FRISBEE.page.score();
 			    },
 			    '*': function() {
 			    	FRISBEE.page.schedule();
@@ -150,7 +177,13 @@ var FRISBEE = FRISBEE || {};
 		ranking: function () {
 			Transparency.render(qwery('[data-route=ranking')[0], FRISBEE.ranking);
 			FRISBEE.router.change();
+		},
+		
+		score: function () {
+			Transparency.render(qwery('[data-route=score')[0], FRISBEE.score);
+			FRISBEE.router.change();
 		}
+
 	};
 
 
