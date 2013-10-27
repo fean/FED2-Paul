@@ -36,6 +36,10 @@ var FRISBEE = FRISBEE || {};
 				xhr.send(postData);
 				
 				console.log("verzonden");
+				
+				FRISBEE.score.init();
+				
+				console.log('Scoring init done!');
 			});
 			
 
@@ -64,8 +68,8 @@ var FRISBEE = FRISBEE || {};
 
 	
 FRISBEE.score = {
-    score1: 0,
-    score2: 0,
+    score1: undefined,
+    score2: undefined,
 
     init: function () {
         score1 = parseInt(document.getElementById('addScore1').innerHTML);
