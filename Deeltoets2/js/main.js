@@ -36,10 +36,6 @@ var FRISBEE = FRISBEE || {};
 				xhr.send(postData);
 				
 				console.log("verzonden");
-				
-				FRISBEE.score.init();
-				
-				console.log('Scoring init done!');
 			});
 			
 
@@ -196,6 +192,9 @@ FRISBEE.score = {
 	//Initiate the FRISBEElication
 	domready(function () {
 		FRISBEE.controller.init();
+		FRISBEE.score.init();
+				
+		console.log('Init done!');
 	});
 	
 })();
