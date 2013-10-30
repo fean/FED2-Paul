@@ -87,7 +87,7 @@ tr {
     font-size: 180%;
 }
 
-#plus1, #plus2 {
+#plus1, #plus2, #finalScore {
     cursor: pointer;
 }
 

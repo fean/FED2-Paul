@@ -17,8 +17,8 @@ var FRISBEE = FRISBEE || {};
                 url = 'https://api.leaguevine.com/v1/game_scores/',
                 postData = JSON.stringify({
                     game_id: '127236',
-                    team_1_score: FRISBEE.score.addScoreId1,
-                    team_2_score: FRISBEE.score.addScoreId2,
+                    team_1_score: FRISBEE.score.getScore1(),
+                    team_2_score: FRISBEE.score.getScore2(),
                     is_final: 'True'
                 });
 
@@ -35,14 +35,14 @@ var FRISBEE = FRISBEE || {};
                 // Send request (with data as a json string)
                 xhr.send(postData);
 
+                FRISBEE.score.reset();
+
                 console.log("verzonden");
-
-                FRISBEE.score.init();
-
-                console.log('Scoring init done!');
             });
 
+            FRISBEE.score.init();
 
+            console.log('Scoring init done!');
         }
     };
 
@@ -70,8 +70,8 @@ var FRISBEE = FRISBEE || {};
 
 
     FRISBEE.score = {
-        score1: undefined,
-        score2: undefined,
+        score1: 0,
+        score2: 0,
 
         init: function () {
             score1 = parseInt(document.getElementById('addScore1').innerHTML);
@@ -86,6 +86,21 @@ var FRISBEE = FRISBEE || {};
                 document.getElementById('addScore2').innerHTML = score2;
                 console.log(score2);
             };
+        },
+
+        reset: function() {
+            score1 = 0;
+            score2 = 0;
+            document.getElementById('addScore1').innerHTML = score1;
+            document.getElementById('addScore2').innerHTML = score2;
+        },
+
+        getScore1: function () {
+            return score1;
+        },
+
+        getScore2: function () {
+            return score2;
         }
     };
 
@@ -186,6 +201,7 @@ var FRISBEE = FRISBEE || {};
         },
 
         score: function () {
+            FRISBEE.score.reset();
             Transparency.render(qwery('[data-route=score')[0], FRISBEE.score);
             FRISBEE.router.change();
         }
